@@ -29,7 +29,7 @@ async function issueSession(res: Response, user: { id: string; email: string; na
   res.cookie(REFRESH_COOKIE, refresh.token, {
     httpOnly: true,
     secure: config.isProd,
-    sameSite: "lax",
+    sameSite: config.isProd ? "none" : "lax",
     path: "/api/auth",
     expires: refresh.expiresAt,
   });
