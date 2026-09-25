@@ -1,0 +1,6 @@
+[build]
+  command = "npm --workspace @relay/web run build"
+  publish = "apps/web/dist"
+
+[build.environment]
+  SECRETS_SCAN_OMIT_PATHS = ".env.example,docker-compose.yml"
