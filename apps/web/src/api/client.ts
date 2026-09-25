@@ -5,6 +5,7 @@
 let accessToken: string | null = null;
 let refreshing: Promise<string | null> | null = null;
 const listeners = new Set<(token: string | null) => void>();
+const apiBase = import.meta.env.VITE_API_BASE || "";
 
 export function getAccessToken() {
   return accessToken;
@@ -30,7 +31,7 @@ export class ApiError extends Error {
 }
 
 export async function refreshSession(): Promise<string | null> {
-  refreshing ??= fetch("/api/auth/refresh", { method: "POST", credentials: "include" })
+  refreshing ??= fetch(`${apiBase}/api/auth/refresh`, { method: "POST", credentials: "include" })
     .then(async (res) => {
       if (!res.ok) return null;
       const body = (await res.json()) as { accessToken: string };

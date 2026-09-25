@@ -9,7 +9,7 @@ const isProd = process.env.NODE_ENV === "production";
 export const config = {
   port: Number(process.env.PORT ?? 4000),
   isProd,
-  clientOrigin: process.env.CLIENT_ORIGIN ?? "http://localhost:5173",
+  clientOrigin: process.env.WEB_ORIGIN ?? process.env.CLIENT_ORIGIN ?? "http://localhost:5173",
   // Redis is optional in dev/test: without it, Socket.IO uses the in-memory
   // adapter and notification jobs run inline instead of through BullMQ.
   redisUrl: process.env.REDIS_URL || undefined,
