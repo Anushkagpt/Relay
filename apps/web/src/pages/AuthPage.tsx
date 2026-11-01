@@ -10,6 +10,11 @@ export function AuthPage({ mode }: { mode: "login" | "register" }) {
   const [password, setPassword] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [busy, setBusy] = useState(false);
+  const fillDemoCredentials = () => {
+    setEmail("demo@relay.dev");
+    setPassword("password123");
+    setError(null);
+  };
 
   if (user) return <Navigate to="/" replace />;
 
@@ -47,6 +52,14 @@ export function AuthPage({ mode }: { mode: "login" | "register" }) {
           Password
           <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} minLength={8} required />
         </label>
+        {mode === "login" && (
+          <div className="demo-login">
+            <button type="button" className="btn" onClick={fillDemoCredentials}>
+              Fill demo credentials
+            </button>
+            <span className="muted small">demo@relay.dev · password123</span>
+          </div>
+        )}
         {error && <div className="error">{error}</div>}
         <button className="btn primary" disabled={busy}>
           {mode === "login" ? "Log in" : "Sign up"}

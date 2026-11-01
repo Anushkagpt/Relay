@@ -86,7 +86,9 @@ npm run db:seed -w apps/server      # optional demo data
 npm run dev                         # API on :4000, web on :5173
 ```
 
-Open http://localhost:5173. With seed data you can log in as `demo@relay.dev` / `password123`.
+Open http://localhost:5173. On the login page, choose **Fill demo credentials** or log in as `demo@relay.dev` / `password123`.
+
+The demo seed creates four accounts (`demo@relay.dev`, `sam@relay.dev`, `alex@relay.dev`, and `taylor@relay.dev`), all using `password123`. They have owner, member, admin, and viewer roles in the Demo Workspace. The workspace includes Product Launch and Marketing Campaign boards with populated columns, assigned and unassigned cards, overdue and upcoming due dates, a comment, activity, and sample notifications. Run `npm run db:seed -w apps/server` again to refresh the sample cards without duplicating them.
 
 Redis is optional for local development: without `REDIS_URL`, Socket.IO uses its in-memory adapter and notification jobs run inline.
 

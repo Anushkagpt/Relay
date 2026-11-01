@@ -5,7 +5,7 @@
 let accessToken: string | null = null;
 let refreshing: Promise<string | null> | null = null;
 const listeners = new Set<(token: string | null) => void>();
-const apiBase = import.meta.env.VITE_API_BASE || "";
+const apiBase = import.meta.env.DEV ? "" : import.meta.env.VITE_API_BASE || "";
 
 export function getAccessToken() {
   return accessToken;
@@ -51,7 +51,7 @@ export async function api<T>(path: string, init: RequestInit = {}, retry = true)
   if (init.body && !headers.has("Content-Type")) headers.set("Content-Type", "application/json");
   if (accessToken) headers.set("Authorization", `Bearer ${accessToken}`);
 
-  const res = await fetch(`${import.meta.env.VITE_API_BASE || ''}/api${path}`, { ...init, headers, credentials: "include" });
+  const res = await fetch(`${apiBase}/api${path}`, { ...init, headers, credentials: "include" });
   if (res.status === 401 && retry && !path.startsWith("/auth/")) {
     const token = await refreshSession();
     if (token) return api<T>(path, init, false);

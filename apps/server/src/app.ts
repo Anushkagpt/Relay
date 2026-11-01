@@ -13,8 +13,11 @@ import { errorHandler } from "./middleware/error";
 
 export function createApp() {
   const app = express();
+  const allowedOrigins = config.isProd
+    ? [config.clientOrigin]
+    : [config.clientOrigin, "http://localhost:5173", "http://127.0.0.1:5173"];
   app.use(helmet());
-  app.use(cors({ origin: config.clientOrigin, credentials: true }));
+  app.use(cors({ origin: allowedOrigins, credentials: true }));
   app.use(express.json({ limit: "1mb" }));
   app.use(cookieParser());
 
